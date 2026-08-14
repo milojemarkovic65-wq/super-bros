@@ -21,11 +21,10 @@
 }
 
 .story_title {
-    font-size: 48px;
-    text-decoration: underline;
-
     h2 {
-        margin: 0 0 20px;
+    margin: 0 0 20px;
+    font-size: 38px;
+    text-decoration: underline;
     }
 }
 

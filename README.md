@@ -1,4 +1,7 @@
 # super-bros
+This is a landing page for Super-Bros pizzeria.
+The initial VueJs setup is used to build the webpage.
+All following links are belowe to help you get started for your own web app with Vue.
 
 This template should help get you started developing with Vue 3 in Vite.
 
