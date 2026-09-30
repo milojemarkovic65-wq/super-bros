@@ -3,8 +3,6 @@ import { ref } from 'vue'
 
 const menuModal = ref(false);
 const openHoursModal = ref(false);
-
-const pdfUrl = ref('/public/menu.pdf');
 </script>
 
 <template>
@@ -33,7 +31,7 @@ const pdfUrl = ref('/public/menu.pdf');
         <div v-if="menuModal" class="modal-overlay" @click="menuModal = false">
             <div class="modal-content" @click.stop>
                 <button @click="menuModal = false">X</button>
-                <iframe :src="pdfUrl" width="100%" height="500px"></iframe>
+                <iframe src="/public/menu.pdf" width="100%" height="500px"></iframe>
             </div>
         </div>
     </Teleport>
