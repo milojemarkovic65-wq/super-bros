@@ -48,6 +48,7 @@ import { RouterLink } from 'vue-router';
 
         @media screen and (max-width: 1024px) {
             max-width: none;
+            height: 100vh;
 
             p {
                 font-size: 13px;
