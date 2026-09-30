@@ -1,7 +1,7 @@
 <template>
     <div class="story">
         <div class="story_title">
-            <h2>Unser Story</h2>
+            <h2>Unsere Story</h2>
         </div>
     
         <div class="story_wrap">
@@ -16,15 +16,24 @@
 <style lang="scss" scoped>
 
 .story {
-    background-color: #f0f0f0;
     padding: 50px 20px;
+
+    @media screen and (max-width: 1024px) {
+        padding: 40px 10px;
+    }
 }
 
 .story_title {
     h2 {
-    margin: 0 0 20px;
-    font-size: 38px;
-    text-decoration: underline;
+        margin: 0 0 20px;
+        font-size: 38px;
+        text-decoration: underline;
+        color: #FFBAC9;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 30px;
+            margin: 0;
+        }
     }
 }
 
@@ -48,7 +57,16 @@
 
         p {
             font-size: 20px;
+
+            @media screen and (max-width: 1024px) {
+                font-size: 16px;
+            }
         }
+    }
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      gap: 0;
     }
 }
 </style>

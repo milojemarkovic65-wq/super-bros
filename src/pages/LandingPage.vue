@@ -2,6 +2,39 @@
 import Story from '../views/Story.vue'
 import Locations from '../views/Locations.vue'
 import Footer from '../views/Footer.vue'
+import PizzaLogo from '../views/PizzaLogo.vue';
+
+
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const welcomeText = [
+  'Willkommen', 
+  'Welcome', 
+  'Benvenuti', 
+  'Bienvenue', 
+  'Bem-vindos', 
+  'Добро пожаловать', 
+  'Dobro došli', 
+  'ようこそ', 
+  '欢迎'
+]
+
+const currentIndex = ref(0)
+
+const changeText = () => {
+  currentIndex.value = (currentIndex.value + 1) % welcomeText.length
+}
+
+let interval
+
+onMounted(() => {
+  interval = setInterval(changeText, 5000)
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+})
+
 </script>
 
 <template>
@@ -9,12 +42,14 @@ import Footer from '../views/Footer.vue'
     <div class="landing_page__logo">
       <img src="/Super_bros_logo.avif" alt="" />
     </div>
-    <h1 class="landing_page__title cherry-cream-soda-regular">Willkommen</h1>
+    <Transition name="fade" mode="out-in">
+        <h1 class="landing_page__title" :key="currentIndex">{{ welcomeText[currentIndex] }}</h1>
+    </Transition>
   </div>
 
   <Story />
   <Locations />
-  <hr />
+  <PizzaLogo />
   <Footer />
 </template>
 
@@ -34,11 +69,19 @@ import Footer from '../views/Footer.vue'
     img {
       width: 100%;
     }
+
+    @media screen and (max-width: 1024px) {
+      width: 300px;
+    }
   }
 
   &__title {
     font-size: 80px;
-    color: #f0f0f0;
+    color: #FFBAC9;
+
+    @media screen and (max-width: 1024px) {
+      font-size: 30px;
+    }
   }
 }
 hr {
@@ -46,5 +89,22 @@ hr {
   border: none;
   height: 10px;
   margin: 0;
+}
+
+
+///// Transition effect ////////
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

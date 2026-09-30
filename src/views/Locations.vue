@@ -1,107 +1,58 @@
 <script setup>
 import { ref } from 'vue'
 
-const isOpen = ref(false);
-const salateModal = ref(false);
-const desertModal = ref(false);
+const menuModal = ref(false);
+const openHoursModal = ref(false);
 
 const pdfUrl = ref('/public/menu.pdf');
 </script>
 
 <template>
-    <div class="locations_section">
-        <h2>Locations</h2>
-        <div class="locations_section_oderweg">
-            <div class="locations_section_oderweg__workdays">
-                <h3>Oeder Weg</h3>
-                <p>Oeder Weg 55-57</p>
-                <p>60318 Frankfurt am Main</p>
-                <p>069-26497580</p>
-                <p>Unsere Öffnungzeiten:</p>
-                <p>Herbst / Winter</p>
-                <p>Dienstag - Donnerstag von 16:00 bis 22:00 Uhr</p>
-                <p>Freitag von 16:00 bis 23:00 Uhr</p>
-                <p>Samstag  von 14.00 bis 23.00 Uhr</p>
-                <p>Sonntag von 14.00 bis 22.00 Uhr</p>
-                <p>Montag ist Ruhetag</p>
-
-                <p>Tischreservierungen sind bei uns leider nicht möglich.</p>
+    <div class="location">
+        <h2>Location</h2>
+        <div class="location_section">
+            <div class="location_section__location">
+                <div>
+                    <h3>Oeder Weg 55-57</h3>
+                    <p>60318 Frankfurt am Main</p>
+                    <p>069-26497580</p>
+                </div>
             </div>
 
-            <div class="locations_section_oderweg__menu">
-                <a @click="isOpen = true">Getränke & Speisekarte</a>
-            </div>
-        </div>
-
-        <div class="locations_section_grunebur">
-            <div class="locations_section_grunebur__menu">
-                <a @click="isOpen = true">Getränke & Speisekarte</a>
-                <a @click="salateModal = true">SALATE</a>
-                <a @click="desertModal = true">DESSERT</a>
+            <div @click="openHoursModal = true" class="location_section__workdays">
+                <h3>Öffnungzeiten</h3>
             </div>
 
-
-            <div class="locations_section_grunebur__workdays">
-                <h3>Grüneburgweg</h3>
-                <p>Grüneburgweg 78 / Parkstrasse 1</p>
-                <p>60322 Frankfurt am Main</p>
-                <p>069-21029842</p>
-                <p>Dienstag - Donnerstag von 12:00 bis 22:00 Uhr</p>
-                <p>Freitag von 12:00 bis 23:00 Uhr</p>
-                <p>Samstag  von 14.00 bis 23.00 Uhr</p>
-                <p>Sonntag von 14.00 bis 22.00 Uhr</p>
-                <p>Montag ist Ruhetag</p>
-
-                <p>Tischreservierungen ab 6 Personen sind möglich. Bitte senden Sie Ihre Anfrage per E-Mail an Luca@super-bros.de</p>
+            <div @click="menuModal = true" class="location_section__menu">
+                <h3>Getränke & Speisekarte</h3>
             </div>
-
         </div>
     </div>
 
     <Teleport to="body">
-        <div v-if="isOpen" class="modal-overlay" @click="isOpen = false">
+        <div v-if="menuModal" class="modal-overlay" @click="menuModal = false">
             <div class="modal-content" @click.stop>
-                <button @click="isOpen = false">X</button>
+                <button @click="menuModal = false">X</button>
                 <iframe :src="pdfUrl" width="100%" height="500px"></iframe>
             </div>
         </div>
     </Teleport>
 
     <Teleport to="body">
-        <div v-if="salateModal || desertModal" class="modal-overlay" @click="(salateModal = false) || (desertModal = false)">
-            <div class="salate-desert-modal-content" @click.stop>
-                <div v-if="salateModal">
-                    <button @click="salateModal = false">X</button>
-                    <h4>SALATE</h4>
-                    <p>BURRATA LOVER -17,5-</p>
-                    <p>Rucola , Burrata, Bunte Kirschtomaten, Basilikum, Tropea Zwiebeln, Karamellisierte Pflaumen, Haselnüsse, Chili-Balsamico Creme</p>
-    
-                    <hr>
+        <div v-if="openHoursModal" class="modal-overlay" @click="openHoursModal = false">
+            <div class="open-hours-modal-content" @click.stop>
+                <div v-if="openHoursModal">
+                    <button @click="openHoursModal = false">X</button>
 
-                    <p>FINOCCHIO E ARANCIA -16,5-</p>
-                    <p>Wildkräutersalat, Fenchel, Chiliflocken, Orangen, Minze, Granatapfel, Chili- Mango Creme</p>
-    
-                    <hr>
+                    <h4>Unsere Öffnungzeiten</h4>
+                    <p>Herbst / Winter</p>
+                    <p>Dienstag - Donnerstag von 16:00 bis 22:00 Uhr</p>
+                    <p>Freitag von 16:00 bis 23:00 Uhr</p>
+                    <p>Samstag  von 14.00 bis 23.00 Uhr</p>
+                    <p>Sonntag von 14.00 bis 22.00 Uhr</p>
+                    <p>Montag ist Ruhetag</p>
 
-                    <p>TROPEANA -14,5-</p>
-                    <p>Tomaten, Thunfisch, Kapern, Tropea Zwiebeln, Oliven, Basilikum, Oregano, Balsamico Creme</p>
-                </div>
-
-                <div v-else>
-                    <button @click="desertModal = false">X</button>
-                    <h4>DESSERT</h4>
-                    <p>SMASH CANNOLO -9-</p>
-                    <p>Cannolo Kekse / Ricotta Creme / Pistazienreme / Waldfrüchte / Puderzucker</p>
-    
-                    <hr>
-                    
-                    <p>LOTUS CHEESECAKE (VEGAN) -9-</p>
-                    <p>Lotus Kekse / Butter / Frischkäse / Sahne / Lotus Karamell Creme</p>
-
-                    <hr>
-    
-                    <p>TIRAMISU AL PISTACCHIO -9-</p>
-                    <p>Savoiardi Kekse / Kaffee / Mascarpone / Pistazien Creme / Kakao Pulver</p>
+                    <p>Tischreservierungen sind bei uns leider nicht möglich.</p>
                 </div>
             </div>
         </div>
@@ -109,56 +60,89 @@ const pdfUrl = ref('/public/menu.pdf');
 </template>
 
 <style lang="scss" scoped>
-.locations_section {
+.location {
     background-color: #f0f0f0;
-    // text-align: center;
+    padding: 50px 0;
+    overflow: hidden;
 
     h2 {
-        margin: 0 0 30px 20px;
+        margin: 0 0 50px 20px;
         font-size: 38px;
         text-decoration: underline;
+        color: #FFBAC9;
+
+        @media screen and (max-width: 1024px) {
+            font-size: 30px;
+            margin-left: 10px;
+        }
     }
 }
 
-.locations_section_oderweg,
-.locations_section_grunebur {
-
+.location_section {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+
+    &__location,
+    &__workdays,
+    &__menu {
+        flex: 1;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: transform .3s;
+
+
+        @media screen and (max-width: 1024px) {
+            flex: none;
+            width: 100%;
+
+            p {
+                font-size: 16px;
+                margin: 0;
+            }
+
+            h3 {
+                font-size: 20px !important;
+                margin: 10px 0 10px 0;
+            }
+        }
+    }
+
+    &__location:hover,
+    &__workdays:hover,
+    &__menu:hover {
+        transform: scale(1.05);
+
+        @media screen and (max-width: 1024px) {
+            transform: none;
+        }
+    }
+
+    &__location {
+        background-color: #fff;
+        font-size: 20px;
+        text-align: center;
+    }
 
     &__workdays {
         background-color: #000;
-        width: 100%;
-        text-align: center;
-        padding: 0 15px;
-
-        h3,p {
-            color: #f0f0f0;
-        }
 
         h3 {
             font-size: 28px;
-            text-decoration: underline;
+            color: #f0f0f0;
         }
     }
 
     &__menu {
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
+        background-color: #FFBAC9;
 
-        a {
-            font-size: 24px;
-            cursor: pointer;
-            transition: all .3s;
-        }
-        a:hover {
-            color: #000000b8;
+        h3 {
+            font-size: 28px;
         }
     }
 }
@@ -182,10 +166,15 @@ const pdfUrl = ref('/public/menu.pdf');
   border-radius: 8px;
   max-width: 900px;
   width: 100%;
+
+  @media screen and (max-width: 1024px) {
+    max-width: none;
+    width: 100%;
+  }
 }
 
-.salate-desert-modal-content {
-    background: #000;
+.open-hours-modal-content {
+    background: #161616;
     text-align: center;
     padding: 5px;
     border-radius: 8px;
@@ -201,6 +190,10 @@ const pdfUrl = ref('/public/menu.pdf');
         background-color: transparent;
         border: none;
         cursor: pointer;
+
+        @media screen and (max-width: 1024px) {
+            right: 8px;
+        }
     }
     
     h4 {
@@ -213,6 +206,18 @@ const pdfUrl = ref('/public/menu.pdf');
 
     hr {
         width: 60%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        max-width: none;
+        width: 100%;
+        border-radius: 0;
+        max-height: 400px;
+        height: 100%;
+
+        p {
+            font-size: 14px;
+        }
     }
 }
 </style>
